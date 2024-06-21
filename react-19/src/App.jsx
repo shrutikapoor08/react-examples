@@ -1,40 +1,47 @@
 import { useState, useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { submitData } from "./actions";
+import { submitAction } from "./actions";
 
 import "./App.css";
 
-// function App() {
-// // React 18
-//   const [name, setName] = useState("");
-//   const [isPending, setIsPending] = useState("");
+/*
+ * React 18 Form
+ */
+/*
+function App() {
+  // React 18
+  console.info("React 18 form");
 
-//   const handleChange = (event) => {
-//     setName(event.target.value);
-//   };
+  const [name, setName] = useState("");
+  const [isPending, setIsPending] = useState("");
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     console.log("post data");
-//     setIsPending(true);
-//     setTimeout(() => {
-//       alert(`You entered ${name}`);
-//       setIsPending(false);
-//     }, [500]);
-//   };
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
 
-//   return (
-//     <form>
-//       <label htmlFor="name">
-//         <input type="text" id="name" onChange={handleChange} />
-//       </label>
-//       {isPending ? <p>{"Loading"}</p> : <p> Hello {name}</p>}
-//       <button onClick={handleSubmit} disabled={isPending}>
-//         Update
-//       </button>
-//     </form>
-//   );
-// }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsPending(true);
+    setTimeout(() => {
+      //call API
+      setIsPending(false);
+    }, [500]);
+  };
+
+  return (
+    <form>
+      <input type="text" name="name" onChange={handleChange} />
+      {isPending ? <p>{"Loading"}</p> : <p> Hello in React 18 {name}</p>}
+      <button onClick={handleSubmit} disabled={isPending}>
+        Update
+      </button>
+    </form>
+  );
+}
+*/
+/*
+ * React 19 Form
+ */
 
 function Loader() {
   const { pending } = useFormStatus();
@@ -50,22 +57,21 @@ function SubmitButton() {
   );
 }
 
-function Name() {
-  const { data } = useFormStatus();
-  return <p>Hello {data && data.get("name")}</p>;
+function Name({ name }) {
+  return <p>Hello in 19 {name}</p>;
 }
 
 function App() {
-  const submitAction = async (formData) => {
-    await submitData(formData.get("name"));
-  };
+  console.info("React 19 form");
+
+  const [state, formAction] = useActionState(submitAction, { name: "" });
 
   return (
-    <form action={submitAction}>
+    <form action={formAction}>
       <input type="text" name="name" />
       <Loader />
       <SubmitButton />
-      <Name />
+      <Name name={state?.name} />
     </form>
   );
 }
