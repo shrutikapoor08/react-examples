@@ -1,13 +1,12 @@
-import { useState, useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { submitAction } from "./actions";
-
+import { submitFormAction } from "./actions";
 import "./App.css";
 
 /*
  * React 18 Form
  */
-/*
+// /*
 function App() {
   // React 18
   console.info("React 18 form");
@@ -25,7 +24,7 @@ function App() {
     setTimeout(() => {
       //call API
       setIsPending(false);
-    }, [500]);
+    }, 500);
   };
 
   return (
@@ -38,42 +37,43 @@ function App() {
     </form>
   );
 }
-*/
-/*
- * React 19 Form
- */
 
+// */
+/*
 function Loader() {
   const { pending } = useFormStatus();
-  return <div>{pending && "Loading..."}</div>;
+  return <div>{pending && "Loading"}</div>;
 }
 
-function SubmitButton() {
+const RenderName = ({ name }) => {
+  const { pending } = useFormStatus();
+
+  return !pending && <p>Hello in React 19 {name} </p>;
+};
+
+const SubmitButton = () => {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending}>
+    <button className={"submitButton"} disabled={pending}>
       Update
     </button>
   );
-}
-
-function Name({ name }) {
-  return <p>Hello in 19 {name}</p>;
-}
+};
 
 function App() {
+  // React 19
   console.info("React 19 form");
 
-  const [state, formAction] = useActionState(submitAction, { name: "" });
+  const [state, formAction] = useActionState(submitFormAction, { name: "" });
 
   return (
     <form action={formAction}>
-      <input type="text" name="name" />
+      <input type="text" name="inputName" />
       <Loader />
+      <RenderName name={state?.name} />
       <SubmitButton />
-      <Name name={state?.name} />
     </form>
   );
 }
-
+*/
 export default App;
