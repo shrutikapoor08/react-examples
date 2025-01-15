@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "babel-plugin-react-compiler": "^19.0.0-beta-a7bf2bd-20241110",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-a7bf2bd-20241110"
+  }
+}

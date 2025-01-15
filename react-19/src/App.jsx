@@ -1,4 +1,4 @@
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { submitFormAction } from "./actions";
 import "./App.css";
@@ -39,7 +39,7 @@ function App() {
 }
 
 // */
-/*
+// /*
 function Loader() {
   const { pending } = useFormStatus();
   return <div>{pending && "Loading"}</div>;
@@ -75,5 +75,5 @@ function App() {
     </form>
   );
 }
-*/
 export default App;
+*/
